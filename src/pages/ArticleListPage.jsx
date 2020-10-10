@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import ArticlesList from '../components/ArticlesList'
-import articles from '../sample-data/articles'
 
 function ArticleListPage() {
+  const [articles, setArticles] = useState([])
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        const res = await fetch(`/api/articles`)
+        const data = await res.json()
+        setArticles(data.articles)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchArticles()
+    return () => {}
+  }, [])
+
   return (
     <>
       <h1>This is the article list page</h1>
-      <ArticlesList articles={articles} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <ArticlesList articles={articles} />
+      </Suspense>
     </>
   )
 }

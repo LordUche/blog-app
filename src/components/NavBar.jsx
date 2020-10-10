@@ -38,7 +38,7 @@ const NavBarStyles = styled.nav`
   a {
     font-weight: bold;
     display: block;
-    padding: 0 2rem;
+    padding: 0 1rem;
 
     &:hover,
     &:active,
